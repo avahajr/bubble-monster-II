@@ -1,0 +1,12 @@
+:root {
+  --main-bg-color: #0c0e12;
+  --main-text-color: #e0e9ef;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+}
+#gamerow {
+  margin-top: 10vh;
+}
