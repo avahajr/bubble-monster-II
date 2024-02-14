@@ -59,13 +59,19 @@ class Particle {
     if (growMaxBlob) {
       return;
     }
-    if (this.pos.x <= 0 || this.pos.x >= width) this.vel.x *= -1;
-    if (this.pos.y <= 0 || this.pos.y >= height) this.vel.y *= -1;
+
     this.vel.add(this.acc);
     this.vel.limit(this.maxspeed);
     this.pos.add(this.vel);
     this.acc.mult(0);
     this.distanceToBlob = dist(this.pos.x, this.pos.y, width / 2, height / 2);
+
+    if (this.pos.x <= 0 || this.pos.x >= width) {
+      this.vel.x *= -1;
+    }
+    if (this.pos.y <= 0 || this.pos.y >= height) {
+      this.vel.y *= -1;
+    }
 
     if (this.framesSinceFlee != null) {
       if (this.trail.length >= TRAIL_LENGTH) {
@@ -99,6 +105,7 @@ class Particle {
       this.applyForce(steer);
     }
   }
+
   seek(target) {
     // params are vector pos of where you want to seek
     let des = p5.Vector.sub(target, this.pos);

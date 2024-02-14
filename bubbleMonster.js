@@ -8,7 +8,7 @@ let scareRange = 20;
 
 const growSpeed = 0.1;
 
-let maxBlobRadius = minBlobRadius + sizeDifference;
+let maxBlobRadius;
 
 // flags for animating.
 let growMaxBlob = false;
@@ -23,7 +23,7 @@ let growing = false;
 let blobMonsterFill = "rgba(255,255,255,0.8)";
 let maxBlobFill = "rgba(255, 255, 255, 0.1)";
 
-let score = 0;
+let score;
 
 let eatSound;
 let luckyEatSound;
@@ -35,6 +35,8 @@ function preload() {
 }
 
 function setup() {
+  score = 0;
+  maxBlobRadius = minBlobRadius + sizeDifference;
   createCanvas(500, 400, document.getElementById("game"));
   blobMonsterPos = createVector(width / 2, height / 2);
   for (let i = 0; i < NUM_PARTICLES; i++) {
@@ -81,7 +83,7 @@ function draw() {
       particles[i].applyForce(fleevect);
     }
 
-    particles[i].boundaries(25);
+    // particles[i].boundaries(25);
   }
 
   // draw the blobmonster
@@ -94,6 +96,9 @@ function draw() {
   if (!growMaxBlob) {
     if (buttonCache.length >= 1) {
       getInputFromCache();
+      if (buttonCache.length == 0) {
+        growing = false;
+      }
     }
     if (growing) {
       currentBlobRadius = lerp(currentBlobRadius, maxBlobRadius, growSpeed);
@@ -108,12 +113,22 @@ function draw() {
   if (Math.abs(maxBlobRadius - nextMaxRadius) < 1) {
     growMaxBlob = false;
   }
+  if (score === 100) {
+    fill("rgba(0,0,0,0.5)");
+    circle(width / 2, height / 2, 1000);
+    fill("red");
+    textSize(50);
+    text("YOU WIN!", width / 2 - 100, 125);
+  }
 }
 
 function keyPressed() {
   if (keyCode === 32) {
     growing = true;
     blobMonsterFill = "rgba(255,255,255,0.95)";
+  }
+  if (score >= 100) {
+    setup();
   }
 }
 

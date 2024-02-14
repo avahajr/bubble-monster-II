@@ -10,3 +10,48 @@ body {
 #gamerow {
   margin-top: 10vh;
 }
+#centericons {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 30px 90px;
+  align-items: center;
+}
+i {
+  scale: 130%;
+  cursor: pointer;
+}
+button {
+  background-color: var(--main-bg-color);
+  border: none;
+  color: white;
+}
+#aboutBox {
+  border: 1px solid rgba(245, 245, 245, 0.4);
+  padding: 20px;
+  border-radius: 10px;
+}
+#aboutBox .content {
+  margin: 20px 10px;
+}
+
+#aboutBox span {
+  font-family: monospace;
+}
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(245, 245, 245, 0.4);
+}
+.particle {
+  background-color: rgba(245, 169, 72, 1);
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 5px;
+  /* background-color: transparent; */
+}
