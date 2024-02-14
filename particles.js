@@ -1,6 +1,5 @@
 // this class describes the properties of a single particle.
 const TRAIL_LENGTH = 10;
-
 class Particle {
   // setting the co-ordinates, radius and the
   // speed of a particle in both the co-ordinates axes.
@@ -60,8 +59,8 @@ class Particle {
     if (growMaxBlob) {
       return;
     }
-    if (this.pos.x < 0 || this.pos.x > width) this.vel.x *= -1;
-    if (this.pos.y < 0 || this.pos.y > height) this.vel.y *= -1;
+    if (this.pos.x <= 0 || this.pos.x >= width) this.vel.x *= -1;
+    if (this.pos.y <= 0 || this.pos.y >= height) this.vel.y *= -1;
     this.vel.add(this.acc);
     this.vel.limit(this.maxspeed);
     this.pos.add(this.vel);

@@ -14,6 +14,9 @@ let maxBlobRadius = minBlobRadius + sizeDifference;
 let growMaxBlob = false;
 let nextMaxRadius;
 
+// variable for caching frames where the spacebar is held down during freeze-frame
+let buttonCache = [];
+
 let blobMonsterPos;
 
 let growing = false;
@@ -56,6 +59,7 @@ function draw() {
       if (particles[i].lucky) {
         nextMaxRadius = maxBlobRadius + 15;
         growMaxBlob = true;
+        buttonCache = [];
         scareRange = maxBlobRadius / 2 - 5;
         console.log("maxBlobRadius:", maxBlobRadius, "scareRange:", scareRange);
         luckyEatSound.play();
@@ -88,6 +92,9 @@ function draw() {
   circle(width / 2, height / 2, maxBlobRadius * 2);
 
   if (!growMaxBlob) {
+    if (buttonCache.length >= 1) {
+      getInputFromCache();
+    }
     if (growing) {
       currentBlobRadius = lerp(currentBlobRadius, maxBlobRadius, growSpeed);
     } else {
@@ -95,6 +102,7 @@ function draw() {
     }
   }
   if (growMaxBlob) {
+    buttonCache.push(keyIsDown(32) ? 32 : 0);
     maxBlobRadius = lerp(maxBlobRadius, nextMaxRadius, growSpeed / 2);
   }
   if (Math.abs(maxBlobRadius - nextMaxRadius) < 1) {
@@ -114,4 +122,13 @@ function keyReleased() {
     growing = false;
     blobMonsterFill = "rgba(255,255,255,0.8)";
   }
+}
+
+function getInputFromCache() {
+  // a function that sets growing and fill for one frame.
+  growing = buttonCache[0] == 32;
+  blobMonsterFill = growing
+    ? "rgba(255,255,255,0.95)"
+    : "rgba(255,255,255,0.8)";
+  buttonCache.shift();
 }
