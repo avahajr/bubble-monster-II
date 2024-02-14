@@ -1,0 +1,36 @@
++----------------+
+| Design Choices |
++----------------+
+I wanted to give more feedback to the player when particles flee and also when the Bubble Monster's range grows.
+I implemented trails when the particle experiences a fleeing force. I was suprised how important the specific 
+transparency value of the trail was in making it look like a trail. If it's too opaque, it looks like a smear. 
+
+Secondly, I wanted to add feedback to the Bubble Monster's range growth, which was really subtle in my first 
+prototype. I added an impact freeze to emphasize the growing. This created a problem where all inputs during 
+the freeze were ignored by default, so I also implemented a button caching system to make sure that these inputs
+weren't completely lost. 
+
++-------------+
+| Worked Well |
++-------------+
+The trails are fairly believable, and for how simple they are, they look great!
+
++------------------+
+| Didn't work well |
++------------------+
+The button caching system is not very nuanced, so I want to refine it. If you hold the space bar throughout the freeze frame, 
+the Blob Monster stays expanded for an annoying amount of time, even if it is accurate. Also, the freeze frame is satisfying at 
+first, but if you get a lot of lucky particles it is annoying.
+
++-----------------------------+
+| What I would do differently |
++-----------------------------+
+I ended up needidng a lot of global variables for this game, which made my code extremely difficult to debug. If I got a
+chance to write this again, I would work on compartmentalizing my code into classes and scoping my variables with more
+intention. 
+
++--------------------+
+| External Resources |
++--------------------+
+https://p5js.org/examples/simulate-particles.html
+https://natureofcode.com/autonomous-agents/
