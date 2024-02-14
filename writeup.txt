@@ -1,39 +1,33 @@
 +----------------+
 | Design Choices |
 +----------------+
-I wanted the player to try to "sneakily" capture particles, balancing the tradeoff of "scaring away" particles
-and immediately scoring.
+I wanted to give more feedback to the player when particles flee and also when the Bubble Monster's range grows.
+I implemented trails when the particle experiences a fleeing force. I was suprised how important the specific 
+transparency value of the trail was in making it look like a trail. If it's too opaque, it looks like a smear. 
 
-To make the particles feel more lifelike, each particle functions as an autonomous vehicle, making decisions
-based on its surroundings. They "run away" if they are too close to the bubble monster. The bubble monster 
-also grows according to the `lerp()` function, so that players cannot instantaneously capture all particles
-within the maximum radius. 
+Secondly, I wanted to add feedback to the Bubble Monster's range growth, which was really subtle in my first 
+prototype. I added an impact freeze to emphasize the growing. This created a problem where all inputs during 
+the freeze were ignored by default, so I also implemented a button caching system to make sure that these inputs
+weren't completely lost. 
 
 +-------------+
 | Worked Well |
 +-------------+
-The autonomous functioning of the particles worked really well in terms of making it feel like the particles 
-were escaping the player. The `lerp()` function also dictated the growth of the bubble in a way that made it 
-feel more "alive".
+The trails are fairly believable, and for how simple they are, they look great!
 
 +------------------+
 | Didn't work well |
 +------------------+
-At the end of the game, the autonomous function of the particles made the gameplay seriously lag. I tried to fix
-this by adding golden particles that, if captured, expanded the radius of the bubble monster. This created a whole
-new problem: I needed to change the radius within which the particles scare off in accordance to the maximum size of
-the bubble. The best ratio of max_radius and scare_range is different for different max_radius values, and a fixed
-offset is not sufficient.
+The button caching system is not very nuanced, so I want to refine it. If you hold the space bar throughout the freeze frame, 
+the Blob Monster stays expanded for an annoying amount of time, even if it is accurate. Also, the freeze frame is satisfying at 
+first, but if you get a lot of lucky particles it is annoying.
 
 +-----------------------------+
 | What I would do differently |
 +-----------------------------+
-I would read the p5.js documentation a lot more carefully. I didn't realize for much of the development process that
-the third parameter of the circle constructor was diameter, not radius. I also would adjust the autonomous behavior 
-ofthe particles while the bubble is unexpanded to avoid the center bubble rather than flee from it. In this way, I 
-would have a lookup table of flow vectors that direct the particles around the central bubble (merely avoiding 
-collision) rather than the flee behavior that I implemented. The particles should flee (i.e., go in the opposite 
-direction) only when the bubble is actively expanding.
+I ended up needidng a lot of global variables for this game, which made my code extremely difficult to debug. If I got a
+chance to write this again, I would work on compartmentalizing my code into classes and scoping my variables with more
+intention. 
 
 +--------------------+
 | External Resources |

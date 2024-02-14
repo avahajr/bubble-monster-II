@@ -3,13 +3,12 @@ const NUM_PARTICLES = 100;
 
 const minBlobRadius = 25;
 const sizeDifference = 35;
-let currentBlobRadius = minBlobRadius;
-let scareRange = 20;
 
 const growSpeed = 0.1;
 
 let maxBlobRadius;
-
+let currentBlobRadius = minBlobRadius;
+let scareRange;
 // flags for animating.
 let growMaxBlob = false;
 let nextMaxRadius;
@@ -37,6 +36,8 @@ function preload() {
 function setup() {
   score = 0;
   maxBlobRadius = minBlobRadius + sizeDifference;
+  currentBlobRadius = minBlobRadius;
+  scareRange = 20;
   createCanvas(500, 400, document.getElementById("game"));
   blobMonsterPos = createVector(width / 2, height / 2);
   for (let i = 0; i < NUM_PARTICLES; i++) {
