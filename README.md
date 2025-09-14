@@ -6,4 +6,4 @@ Press `SPACE` to expand the bubble and capture particles. Capturing gold particl
 
 ## How to run
 
-Play the game [here](https://avahajr.github.io/bubble-monster/).
+Play the game [here](https://avahajr.github.io/bubble-monster-II/).
